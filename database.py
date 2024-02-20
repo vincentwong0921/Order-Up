@@ -1,5 +1,5 @@
 from dotenv import load_dotenv
-from app.models import Menu, MenuItem, MenuItemType
+from app.models import Menu, MenuItem, MenuItemType, Table
 
 load_dotenv()
 
@@ -32,4 +32,18 @@ with app.app_context():
     jambalaya = MenuItem(name="Jambalaya", price=21.98, menu_id=dinner.id, menu_type_id=entrees.id)
 
     db.session.add_all([dinner, fries, drp, jambalaya])
+    db.session.commit()
+
+    table1 = Table(number=1, capacity=10)
+    table2 = Table(number=2, capacity=11)
+    table3 = Table(number=3, capacity=12)
+    table4 = Table(number=4, capacity=13)
+    table5 = Table(number=5, capacity=14)
+    table6 = Table(number=6, capacity=15)
+    table7 = Table(number=7, capacity=16)
+    table8 = Table(number=8, capacity=17)
+    table9 = Table(number=9, capacity=18)
+    table10 = Table(number=10, capacity=19)
+
+    db.session.add_all([table1, table2, table3, table4, table5, table6, table7, table8, table9, table10])
     db.session.commit()
