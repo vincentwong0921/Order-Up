@@ -1,5 +1,5 @@
 from dotenv import load_dotenv
-from app.models import Menu, MenuItem, MenuItemType, Table
+
 
 load_dotenv()
 
@@ -8,7 +8,7 @@ load_dotenv()
 # so that the environment variables are
 # properly loaded.
 from app import app, db
-from app.models import Employee
+from app.models import Employee, Menu, MenuItem, MenuItemType, Table
 
 
 with app.app_context():
@@ -19,21 +19,14 @@ with app.app_context():
     beverages = MenuItemType(name="Beverages")
     entrees = MenuItemType(name="Entrees")
     sides = MenuItemType(name="Sides")
-
-    db.session.add_all([employee, beverages, entrees, sides])
-    db.session.commit()
-
     dinner = Menu(name="Dinner")
-    db.session.add(dinner)
+
+    fries = MenuItem(name="French fries", price=3.50, menu_type_id=3, menu_id=1)
+    drp = MenuItem(name="Dr. Pepper", price=1.0, menu_type_id=1, menu_id=1)
+    jambalaya = MenuItem(name="Jambalaya", price=21.98, menu_type_id=2, menu_id=1)
+
+    db.session.add_all([employee, beverages, entrees, sides, dinner, fries, drp, jambalaya])
     db.session.commit()
-
-    fries = MenuItem(name="French fries", price=3.50, menu_id=dinner.id, menu_type_id=sides.id)
-    drp = MenuItem(name="Dr. Pepper", price=1.0, menu_id=dinner.id, menu_type_id=beverages.id)
-    jambalaya = MenuItem(name="Jambalaya", price=21.98, menu_id=dinner.id, menu_type_id=entrees.id)
-
-    db.session.add_all([dinner, fries, drp, jambalaya])
-    db.session.commit()
-
     table1 = Table(number=1, capacity=10)
     table2 = Table(number=2, capacity=11)
     table3 = Table(number=3, capacity=12)
